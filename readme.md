@@ -2,8 +2,49 @@
 
 > VAE + Diffusion 架构的原生3D生成技术演进
 
-**整理日期**：2026年3月26日  
+**整理日期**：2026年3月  
 **核心思路**：在3D latent空间上训练扩散模型，实现端到端的原生3D生成。核心挑战在于设计高效的3D VAE和适配的Diffusion架构。
+
+---
+
+## 📑 论文列表（Quick Links）
+
+### 核心主线论文
+
+| 年份 | 论文 | 机构 | 会议/来源 | 关键词 |
+|------|------|------|----------|-------|
+| 2023.01 | [**3DShape2VecSet**: A 3D Shape Representation for Neural Fields and Generative Diffusion Models](https://arxiv.org/abs/2301.11445) | Adobe Research | SIGGRAPH 2023 | VecSet, Transformer VAE, 奠基 |
+| 2023.06 | [**Michelangelo**: Conditional 3D Shape Generation based on Shape-Image-Text Aligned Latent Representation](https://arxiv.org/abs/2306.17115) | NVIDIA, 上海交大 | NeurIPS 2023 | 多模态对齐, SITA-VAE |
+| 2024.03 | [**3DTopia**: Large Text-to-3D Generation Model with Hybrid Diffusion Priors](https://arxiv.org/abs/2403.02234) | 上海AI实验室, NTU | arXiv | PrimX, Hybrid Diffusion |
+| 2024.05 | [**Direct3D**: Scalable Image-to-3D Generation via 3D Latent Diffusion Transformer](https://arxiv.org/abs/2405.14832) | 南京大学, DreamTech AI | NeurIPS 2024 | Triplane VAE, 可扩展 |
+| 2024.06 | [**CLAY**: A Controllable Large-scale Generative Model for Creating High-quality 3D Assets](https://arxiv.org/abs/2406.13897) | 智谱AI | arXiv | 第一个3D大模型, Flow Matching |
+| 2024.12 | [**TRELLIS**: Structured 3D Latents for Scalable and Versatile 3D Generation](https://arxiv.org/abs/2412.01506) | Microsoft Research, 清华 | CVPR 2025 | 结构化latent (SLAT), 里程碑 |
+| 2025.01 | [**Hunyuan3D 2.0**: Scaling Diffusion Models for High Resolution Textured 3D Assets Generation](https://arxiv.org/abs/2501.12202) | 腾讯混元 | arXiv | 几何+纹理解耦, 商业标杆 |
+| 2025.02 | [**TripoSG**: High-Fidelity 3D Shape Synthesis using Large-Scale Rectified Flow Models](https://arxiv.org/abs/2502.06608) | VAST AI (Tripo) | arXiv | MoE Transformer, 高保真 |
+| 2025.05 | [**Direct3D-S2**: Gigascale 3D Generation Made Easy with Spatial Sparse Attention](https://arxiv.org/abs/2505.17412) | 南京大学, DreamTech AI | NeurIPS 2025 | 稀疏卷积VAE, 1024³ |
+| 2025.06 | [**Hunyuan3D 2.1**: From Images to High-Fidelity 3D Assets with Production-Ready PBR Material](https://arxiv.org/abs/2506.15442) | 腾讯混元 | arXiv | PBR材质, 完全开源 |
+| 2025.06 | [**Hunyuan3D 2.5**: Towards High-Fidelity 3D Assets Generation with Ultimate Details](https://arxiv.org/abs/2506.16504) | 腾讯混元 | arXiv | LATTICE 10B, 768纹理 |
+| 2025.09 | [**Hunyuan3D-Omni**: A Unified Framework for Controllable Generation of 3D Assets](https://arxiv.org/abs/2509.21245) | 腾讯混元 | arXiv | 统一多条件控制 |
+| 2025.10 | [**Seed3D 1.0**: Simulation-Ready 3D Asset Generation from Single Images](https://arxiv.org/abs/2510.19944) | 字节跳动 Seed | arXiv | 仿真级, 6K纹理, PBR |
+| 2025.12 | [**TRELLIS.2**: Native and Compact Structured Latents for 3D Generation](https://arxiv.org/abs/2512.14692) | Microsoft Research, 清华, USTC | arXiv | O-Voxel, 4B参数, 当前SOTA |
+
+### 2025-2026 扩展论文
+
+| 年份 | 论文 | 机构 | 关键词 |
+|------|------|------|-------|
+| 2024.08 | [**Atlas Gaussians Diffusion** for 3D Generation](https://arxiv.org/abs/2408.13055) | — | Atlas Gaussian表示, 局部patch |
+| 2024.08 | [**OctFusion**: Octree-based Diffusion Models for 3D Shape Generation](https://arxiv.org/abs/2408.14732) | — | Octree扩散, 层次化3D |
+| 2024.10 | [**L3DG**: Latent 3D Gaussian Diffusion](https://arxiv.org/abs/2410.13530) | — | 3DGS latent空间扩散 |
+| 2024.11 | [**DiffusionGS**: Baking Gaussian Splatting into Diffusion Denoiser](https://arxiv.org/abs/2411.14384) | Adobe Research | 3DGS嵌入pixel diffusion |
+| 2024.12 | [**Prometheus**: 3D-Aware Latent Diffusion Models for Feed-Forward Text-to-3D Scene Generation](https://arxiv.org/abs/2412.21117) | 浙江大学 | 场景级3D生成, GS-VAE |
+| 2025.03 | [**COD-VAE**: Representing 3D Shapes With 64 Latent Vectors for 3D Diffusion Models](https://arxiv.org/abs/2503.08737) | — | 极致压缩 (仅64向量) |
+| 2025.03 | [**SparseFlex** (TripoSF): High-Resolution and Arbitrary-Topology 3D Shape Modeling](https://arxiv.org/abs/2503.21732) | VAST AI (Tripo) | 任意拓扑, 高分辨率 |
+| 2025.05 | [**Sparc3D**: Sparse Representation and Construction for High-Resolution 3D Shapes Modeling](https://arxiv.org/abs/2505.14521) | — | 稀疏表示, 1536³ |
+| 2025.06 | [**PartCrafter**: Structured 3D Mesh Generation via Compositional Latent Diffusion Transformers](https://arxiv.org/abs/2506.05573) | — | 部件级组合式生成 |
+| 2025.09 | [**UniLat3D**: Geometry-Appearance Unified Latents for Single-Stage 3D Generation](https://arxiv.org/abs/2509.25079) | — | 几何-外观统一latent |
+| 2025.12 | [**LATTICE**: Democratize High-Fidelity 3D Generation at Scale](https://arxiv.org/abs/2512.03052) | — | 大规模高保真生成 |
+| 2025.12 | [**UltraShape 1.0**: High-Fidelity 3D Shape Generation via Scalable Geometric Refinement](https://arxiv.org/abs/2512.21185) | 北京大学 | 渐进式几何细化 |
+| 2025.12 | [**LaFiTe**: A Generative Latent Field for 3D Native Texturing](https://arxiv.org/abs/2512.04786) | — | 3D原生纹理生成 |
 
 ---
 
@@ -121,12 +162,15 @@ Native 3D Gen 遵循 **VAE + Diffusion** 两阶段范式（类比2D LDM）：
   - 后续迭代 2.1 → 2.5 → 3.0，精度持续提升
 - **地位**：🏆 **商业落地标杆**，腾讯入局的代表作
 
-#### 📄 Hunyuan3D 2.1
+#### 📄 Hunyuan3D 2.1 (arXiv 2025.06)
+- **论文**：*Hunyuan3D 2.1: From Images to High-Fidelity 3D Assets with Production-Ready PBR Material*
+- **arXiv**：2506.15442 | **PDF**：`papers/14_Hunyuan3D-2.1_2506.15442.pdf`
 - **机构**：腾讯混元
 - **GitHub**：[Tencent-Hunyuan/Hunyuan3D-2.1](https://github.com/tencent-hunyuan/hunyuan3d-2.1)
 - **核心改进**：
   - 完全开源框架
-  - **Physically-Based Rendering (PBR)** 纹理支持
+  - **Physically-Based Rendering (PBR)** 纹理支持（Albedo + Metallic + Roughness）
+  - Spatial-Aligned Multi-Attention、3D-Aware RoPE、Illumination-Invariant训练
   - 几何和纹理质量进一步提升
 
 #### 📄 TripoSG (arXiv 2025.02)
@@ -246,20 +290,39 @@ Native 3D Gen 遵循 **VAE + Diffusion** 两阶段范式（类比2D LDM）：
 
 ---
 
-## 六、论文PDF清单
+## 六、本地论文PDF清单
 
-| # | 文件名 | 论文 | arXiv |
-|---|--------|------|-------|
-| 01 | `01_3DShape2VecSet_2301.11445.pdf` | 3DShape2VecSet | 2301.11445 |
-| 02 | `02_Michelangelo_2306.17115.pdf` | Michelangelo | 2306.17115 |
-| 03 | `03_CLAY_2406.13897.pdf` | CLAY | 2406.13897 |
-| 04 | `04_Direct3D_2405.14832.pdf` | Direct3D | 2405.14832 |
-| 05 | `05_TRELLIS_2412.01506.pdf` | TRELLIS | 2412.01506 |
-| 06 | `06_Direct3D-S2_2505.17412.pdf` | Direct3D-S2 | 2505.17412 |
-| 07 | `07_TRELLIS2_2512.14692.pdf` | TRELLIS.2 | 2512.14692 |
-| 08 | `08_TripoSG_2502.06608.pdf` | TripoSG | 2502.06608 |
-| 09 | `09_Hunyuan3D-2_2501.12202.pdf` | Hunyuan3D 2.0 | 2501.12202 |
-| 10 | `10_3DTopia_2403.02234.pdf` | 3DTopia | 2403.02234 |
+`papers/` 文件夹中收录了以下论文的PDF（共27篇）：
+
+| # | 文件名 | 论文 | arXiv链接 |
+|---|--------|------|----------|
+| 01 | `01_3DShape2VecSet_2301.11445.pdf` | 3DShape2VecSet | [2301.11445](https://arxiv.org/abs/2301.11445) |
+| 02 | `02_Michelangelo_2306.17115.pdf` | Michelangelo | [2306.17115](https://arxiv.org/abs/2306.17115) |
+| 03 | `03_CLAY_2406.13897.pdf` | CLAY | [2406.13897](https://arxiv.org/abs/2406.13897) |
+| 04 | `04_Direct3D_2405.14832.pdf` | Direct3D | [2405.14832](https://arxiv.org/abs/2405.14832) |
+| 05 | `05_TRELLIS_2412.01506.pdf` | TRELLIS | [2412.01506](https://arxiv.org/abs/2412.01506) |
+| 06 | `06_Direct3D-S2_2505.17412.pdf` | Direct3D-S2 | [2505.17412](https://arxiv.org/abs/2505.17412) |
+| 07 | `07_TRELLIS2_2512.14692.pdf` | TRELLIS.2 | [2512.14692](https://arxiv.org/abs/2512.14692) |
+| 08 | `08_TripoSG_2502.06608.pdf` | TripoSG | [2502.06608](https://arxiv.org/abs/2502.06608) |
+| 09 | `09_Hunyuan3D-2_2501.12202.pdf` | Hunyuan3D 2.0 | [2501.12202](https://arxiv.org/abs/2501.12202) |
+| 10 | `10_3DTopia_2403.02234.pdf` | 3DTopia | [2403.02234](https://arxiv.org/abs/2403.02234) |
+| 11 | `11_COD-VAE_2503.08737.pdf` | COD-VAE | [2503.08737](https://arxiv.org/abs/2503.08737) |
+| 12 | `12_AtlasGaussians_2408.13055.pdf` | Atlas Gaussians | [2408.13055](https://arxiv.org/abs/2408.13055) |
+| 13 | `13_L3DG_2410.13530.pdf` | L3DG | [2410.13530](https://arxiv.org/abs/2410.13530) |
+| 14 | `14_Hunyuan3D-2.1_2506.15442.pdf` | Hunyuan3D 2.1 | [2506.15442](https://arxiv.org/abs/2506.15442) |
+| 15 | `15_OctFusion_2408.14732.pdf` | OctFusion | [2408.14732](https://arxiv.org/abs/2408.14732) |
+| 16 | `16_LATTICE_2512.03052.pdf` | LATTICE | [2512.03052](https://arxiv.org/abs/2512.03052) |
+| 17 | `17_UniLat3D_2509.25079.pdf` | UniLat3D | [2509.25079](https://arxiv.org/abs/2509.25079) |
+| 18 | `18_UltraShape_2512.21185.pdf` | UltraShape 1.0 | [2512.21185](https://arxiv.org/abs/2512.21185) |
+| 19 | `19_Sparc3D_2505.14521.pdf` | Sparc3D | [2505.14521](https://arxiv.org/abs/2505.14521) |
+| 20 | `20_SparseFlex_2503.21732.pdf` | SparseFlex (TripoSF) | [2503.21732](https://arxiv.org/abs/2503.21732) |
+| 21 | `21_LaFiTe_2512.04786.pdf` | LaFiTe | [2512.04786](https://arxiv.org/abs/2512.04786) |
+| 23 | `23_Prometheus_2412.21117.pdf` | Prometheus | [2412.21117](https://arxiv.org/abs/2412.21117) |
+| 24 | `24_DiffusionGS_2411.14384.pdf` | DiffusionGS | [2411.14384](https://arxiv.org/abs/2411.14384) |
+| 25 | `25_PartCrafter_2506.05573.pdf` | PartCrafter | [2506.05573](https://arxiv.org/abs/2506.05573) |
+| 27 | `27_Hunyuan3D-2.5_2506.16504.pdf` | Hunyuan3D 2.5 | [2506.16504](https://arxiv.org/abs/2506.16504) |
+| 28 | `28_Hunyuan3D-Omni_2509.21245.pdf` | Hunyuan3D-Omni | [2509.21245](https://arxiv.org/abs/2509.21245) |
+| 29 | `29_Seed3D_2510.19944.pdf` | Seed3D 1.0 | [2510.19944](https://arxiv.org/abs/2510.19944) |
 
 ---
 
